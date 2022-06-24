@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.bogdanovmn.cmdtpl</groupId>
+        <artifactId>command-template</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>ct-execute</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.bogdanovmn.cmdline</groupId>
+            <artifactId>cmdline-app</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bogdanovmn.common</groupId>
+            <artifactId>common-concurrent</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bogdanovmn.cmdtpl</groupId>
+            <artifactId>ct-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <finalName>graph-builder</finalName>
+                    <finalName>cmdtplexec</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.bogdanovmn.cmdtpl.cli.execute.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>uber-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
