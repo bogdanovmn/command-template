@@ -10,7 +10,7 @@ class VariableToken {
     private final String expression;
     private final VariableParameters parameters;
 
-    static final String VALUE_PLACEHOLDER = "\\{#\\}";§
+    static final String VALUE_PLACEHOLDER = "\\{#\\}";
 
     long instancesCount() {
         return 1
