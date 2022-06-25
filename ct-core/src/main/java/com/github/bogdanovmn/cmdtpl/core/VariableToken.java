@@ -16,12 +16,6 @@ class VariableToken {
         return 1
             + (parameters.getFinishValue() - parameters.getStartValue()) / parameters.getIncrementStep()
             + ((parameters.getFinishValue() - parameters.getStartValue()) % parameters.getIncrementStep() > 0 ? 1 : 0);
-
-//        return 1
-//            + parameters.getFinishValue() / parameters.getIncrementStep()
-//            - parameters.getStartValue() / parameters.getIncrementStep()
-//            + (shouldIncludeLastValueAsReminder() ? 1 : 0);
-
     }
 
     long instancesCount1() {
