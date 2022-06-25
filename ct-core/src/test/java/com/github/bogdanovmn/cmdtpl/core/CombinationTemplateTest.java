@@ -32,6 +32,15 @@ class CombinationTemplateTest {
                     "cmd -x2 -y30 something else",
                     "cmd -x2 -y40 something else"
                 )
+            ),
+            Arguments.of(
+                "cmd -x{1:2:1} -y{10:30:20} /path/to/file.png /path/to/file_{#}.png",
+                Arrays.asList(
+                    "cmd -x1 -y10 /path/to/file.png /path/to/file_x1_y10.png",
+                    "cmd -x1 -y30 /path/to/file.png /path/to/file_x1_y30.png",
+                    "cmd -x2 -y10 /path/to/file.png /path/to/file_x2_y10.png",
+                    "cmd -x2 -y30 /path/to/file.png /path/to/file_x2_y30.png"
+                )
             )
         );
     }

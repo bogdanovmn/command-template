@@ -22,6 +22,14 @@ public class CombinationTemplate {
                 for (int i = 1; i <= variables.size(); i++) {
                     instance = instance.replaceFirst(String.format("\\{#%d\\}", i), variables.get(i - 1));
                 }
+                if (!variables.isEmpty()) {
+                    instance = instance.replaceAll(
+                        "\\{#\\}",
+                        variables.stream()
+                            .map(variable -> variable.replaceAll("[^a-zA-Z0-9]", ""))
+                            .collect(Collectors.joining("_"))
+                    );
+                }
                 return instance;
             })
             .collect(Collectors.toList());
