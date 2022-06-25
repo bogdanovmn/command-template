@@ -1,13 +1,14 @@
 package com.github.bogdanovmn.cmdtpl.core;
 
 import com.google.common.collect.Lists;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class CombinationTemplate {
     private final String internalExpression;
     private final List<VariableToken> variableTokens;
@@ -27,9 +28,9 @@ public class CombinationTemplate {
     }
 
     public long totalInstances() {
-        long result = 0;
+        long result = 1;
         for (VariableToken token : variableTokens) {
-            result += token.instancesCount();
+            result *= token.instancesCount();
         }
         return result;
     }
