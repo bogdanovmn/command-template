@@ -19,14 +19,19 @@ public class CombinationTemplate {
         return Lists.cartesianProduct(variablesCombinations).stream()
             .map(variables -> {
                 String instance = internalExpression;
+                List<String> label = new ArrayList<>();
                 for (int i = 1; i <= variables.size(); i++) {
                     instance = instance.replaceFirst(String.format("\\{#%d\\}", i), variables.get(i - 1));
+                    label.add(
+                        variableTokens.get(i - 1).label().orElse("")
+                        + variables.get(i - 1)
+                    );
                 }
                 if (!variables.isEmpty()) {
                     instance = instance.replaceAll(
                         "\\{#\\}",
-                        variables.stream()
-                            .map(variable -> variable.replaceAll("[^a-zA-Z0-9]", ""))
+                        label.stream()
+                            .map(l -> l.replaceAll("[^a-zA-Z0-9]", ""))
                             .collect(Collectors.joining("_"))
                     );
                 }

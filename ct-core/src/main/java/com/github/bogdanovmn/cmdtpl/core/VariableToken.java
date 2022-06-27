@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 class VariableToken {
@@ -14,24 +15,13 @@ class VariableToken {
 
     long instancesCount() {
         return 1
-            + (parameters.getFinishValue() - parameters.getStartValue()) / parameters.getIncrementStep()
-            + ((parameters.getFinishValue() - parameters.getStartValue()) % parameters.getIncrementStep() > 0 ? 1 : 0);
-    }
-
-    long instancesCount1() {
-        long count = 0;
-        for (int i = parameters.getStartValue(); i <= parameters.getFinishValue(); i += parameters.getIncrementStep()) {
-            count++;
-        }
-        if (shouldIncludeLastValueAsReminder()) {
-            count++;
-        }
-        return count;
+            + (parameters.finishValue() - parameters.startValue()) / parameters.incrementStep()
+            + ((parameters.finishValue() - parameters.startValue()) % parameters.incrementStep() > 0 ? 1 : 0);
     }
 
     List<String> instances() {
         List<String> result = new ArrayList<>();
-        for (int i = parameters.getStartValue(); i <= parameters.getFinishValue(); i += parameters.getIncrementStep()) {
+        for (int i = parameters.startValue(); i <= parameters.finishValue(); i += parameters.incrementStep()) {
             result.add(
                 expression.replaceFirst(
                     VALUE_PLACEHOLDER,
@@ -43,14 +33,18 @@ class VariableToken {
             result.add(
                 expression.replaceFirst(
                     VALUE_PLACEHOLDER,
-                    String.valueOf(parameters.getFinishValue())
+                    String.valueOf(parameters.finishValue())
                 )
             );
         }
         return result;
     }
 
+    Optional<String> label() {
+        return Optional.ofNullable(parameters.label());
+    }
+
     private boolean shouldIncludeLastValueAsReminder() {
-        return (parameters.getFinishValue() - parameters.getStartValue()) % parameters.getIncrementStep() != 0;
+        return (parameters.finishValue() - parameters.startValue()) % parameters.incrementStep() != 0;
     }
 }

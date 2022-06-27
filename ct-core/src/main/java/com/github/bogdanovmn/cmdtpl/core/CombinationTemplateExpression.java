@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class CombinationTemplateExpression {
     private final String expression;
 
-    private static final Pattern VARIABLE_PARAMS_PATTERN = Pattern.compile("\\{(\\d+:\\d+:\\d+)\\}");
+    private static final Pattern VARIABLE_PARAMS_PATTERN = Pattern.compile("\\{(\\d+:\\d+:\\d+(?::\\w+)?)\\}");
     private static final Pattern VARIABLE_PATTERN = Pattern.compile(
         String.format(".*%s.*", VARIABLE_PARAMS_PATTERN.pattern())
     );
