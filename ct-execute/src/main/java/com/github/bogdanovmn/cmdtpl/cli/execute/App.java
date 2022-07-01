@@ -7,6 +7,7 @@ import com.github.bogdanovmn.common.concurrent.ConcurrentConsuming;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class App {
@@ -69,8 +70,15 @@ public class App {
 
     private static void execute(String cmd) {
         try {
-            Runtime.getRuntime().exec(cmd);
-        } catch (IOException ex) {
+            Process process = Runtime.getRuntime().exec(cmd);
+            final int timeout = 60;
+            if (!process.waitFor(timeout, TimeUnit.SECONDS)) {
+                process.destroy();
+                throw new RuntimeException(
+                    String.format("Process haven't been finished in %d sec", timeout)
+                );
+            }
+        } catch (Exception ex) {
             throw new RuntimeException(
                 String.format("Command '%s' execution error: %s", cmd, ex.getMessage()),
                 ex

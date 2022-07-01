@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>com.github.bogdanovmn.common</groupId>
                 <artifactId>common-concurrent</artifactId>
-                <version>1.9.0</version>
+                <version>1.9.1</version>
             </dependency>
 
             <!-- Others -->
